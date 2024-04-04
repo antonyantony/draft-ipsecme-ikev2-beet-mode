@@ -1,6 +1,6 @@
-NEW_FILE?=draft-antony-ipsecme-beet-mode
-OLD_FILE?=draft-antony-ipsecme-beet-mode
-TMP_FILE?=draft-antony-ipsecme-beet-mode-tmp
+NEW_FILE?=draft-antony-ipsecme-iekv2-beet-mode
+OLD_FILE?=draft-antony-ipsecme-iekv2-beet-mode
+TMP_FILE?=draft-antony-ipsecme-iekv2-beet-mode-tmp
 
 XML2RFC?=/Users/antony/Library/Python/3.11/bin/xml2rfc
 

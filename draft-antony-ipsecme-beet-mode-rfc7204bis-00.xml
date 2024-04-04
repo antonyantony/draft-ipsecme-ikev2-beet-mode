@@ -24,27 +24,15 @@
     </author>
     <area>sec</area>
     <workgroup>IPSECME Working Group</workgroup>
-    <keyword>IKEv2</keyword>
     <keyword>BEET</keyword>
     <abstract>
       <t>
    This document describes IPsec ESP, known as Bound End-to-End Tunnel (BEET)
    protocol.
 
-	 This document replaces and updates RFC 5996, and includes all
-   of the errata for it, and it is intended to update IKEv2 to be
+	 This document replaces and updates <xref target="RFC7402"/> appendix B, and includes all
+   of the errata for it, and it is intended to update BEET mode to be
    Internet Standard.
-
-
-	 IKE is a component of IPsec used for performing mutual
-
-
-
-   authentication and establishing and maintaining Security Associations
-   (SAs).  This document replaces and updates RFC 5996, and includes all
-   of the errata for it, and it is intended to update IKEv2 to be
-   Internet Standard.
-
 
     This document specifies a new mode for IPsec ESP, known as Bound
 		End-to-End Tunnel (BEET) mode. This mode complements the existing ESP tunnel
@@ -52,11 +40,7 @@
 		characteristics of the tunnel mode but without its usual overhead. The BEET
 		mode is designed to accommodate evolving applications of ESP, such as
 		minimalist end-to-end tunnel, mobility and multi-address multi-homing.
-		Additionally, this document proposes a new Notify Message, USE_BEET_MODE, for the
-		Internet Key Exchange Protocol Version 2 (IKEv2) specified in
-		<xref target="RFC7296"/>, to facilitate BEET mode Security Association
-		negotiation.
-    </t>
+		    </t>
     </abstract>
   </front>
   <middle>
@@ -814,54 +798,6 @@ lower-powered devices.
    was not on the path, the new SPI value would not be known by the
    attacker.
 	 </t>
-    </section>
-    <section anchor="IKENegotiation" numbered="true" toc="default">
-      <name>IKEv2 Negotiation</name>
-      <t>
-			When negotiating a Child SA using using IKEv2, the initiator may use
-      the new "USE_BEET_MODE" Notify Message to request a Child SA pair with
-      BEET mode support.  The method used is similar to how USE_TRANSPORT_MODE
-			is negotiated, as described in <xref target="RFC7296"/>
-			</t>
-      <t>
-      To request a BEET-mode SA on the Child SA pair, the initiator MUST
-      include the USE_BEET_MODE Notify Message when requesting a new Child
-			SA, either during the IKE_AUTH or CREATE_CHILD_SA exchanges.
-			If the request is accepted, the response MUST also include a USE_BEET_MODE
-			notification. If the responder declines and does not include the
-			USE_BEET_MODE notification in the response, the child SA will be
-			established without BEET mode enabled. If this is unacceptable to the
-			initiator, the initiator MUST delete the child SA.
-	 </t>
-      <section title="USE_BEET_MODE Notify Message Payload" anchor="USEBeetNotify">
-        <figure align="center">
-          <artwork align="left"><![CDATA[
-0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-----------------------------+-------------------------------+
-! Next Payload  !C!  RESERVED   !         Payload Length        !
-+---------------+---------------+-------------------------------+
-!  Protocol ID  !   SPI Size    !      Notify Message Type      !
-+---------------+---------------+-------------------------------+
-				 ]]></artwork>
-        </figure>
-        <ul>
-          <li>Payload Length - MUST be 0. </li>
-          <li>Protocol ID (1 octet) - MUST be 0. MUST be ignored if not 0.</li>
-          <li>SPI Size (1 octet) - MUST be 0. MUST be ignored if not 0.</li>
-        </ul>
-      </section>
-    </section>
-    <section anchor="IANA" title="IANA Considerations">
-      <t>
-        This document defines a new IKEv2 Notify Message Type payloads for the IANA "IKEv2 Notify Message Types - Status Types" registry.
-        </t>
-      <figure align="center" anchor="iana_requests_i">
-        <artwork align="left"><![CDATA[
-      Value   Notify Type Messages - Status Types    Reference
-      -----   ------------------------------    ---------------
-      [TBD1]   USE_BEET_MODE                      [this document]
-            ]]></artwork>
-      </figure>
     </section>
     <section anchor="Implementation" numbered="true" toc="default">
       <name>Implementation Status</name>

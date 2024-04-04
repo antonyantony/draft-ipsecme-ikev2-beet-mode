@@ -1,0 +1,48 @@
+https://www.iana.org/assignments/ikev2-parameters/ikev2-parameters.xhtml
+
+https://www.iana.org/assignments/ipv6-parameters/ipv6-parameters.xhtml
+
+94 is set only when there is optional headers. For both IPv6 and IPv4
+
+IANA Protocol Numbers
+https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xml
+
+94	IPIP	IP-within-IP Encapsulation Protocol		[John_Ioannidis]
+
+Linux: headers say  94 is IPPROTO_BEETPH
+----
+
+    IPPROTO_IPIP = 4,      /* IPIP tunnels (older KA9Q tunnels use 94).  */
+#define IPPROTO_IPIP            IPPROTO_IPIP
+
+   IPPROTO_BEETPH = 94,   /* IP option pseudo header for BEET.  */
+#define IPPROTO_BEETPH          IPPROTO_BEETPH
+
+Linux kernel
+
+commit 0a69452cb45add0841c2bc1e75c25f6bd4f1d8d9
+Author: Diego Beltrami <diego.beltrami@gmail.com>
+Date:   Tue Oct 3 23:47:05 2006 -0700
+
+    [XFRM]: BEET mode
+
+include/linux/in.h
+
++  IPPROTO_BEETPH = 94,        /* IP option pseudo header for BEET */
+
+
+----
+git show 607ca46e97a1b
+commit 607ca46e97a1b6594b29647d98a32d545c24bdff
+Author: David Howells <dhowells@redhat.com>
+Date:   Sat Oct 13 10:46:48 2012 +0100
+
+    UAPI: (Scripted) Disintegrate include/linux
+
+commit cfd280c91253cc28e4919e349fa7a813b63e71e8
+Author: Carlos O'Donell <carlos@redhat.com>
+Date:   Thu Aug 15 17:28:10 2013 +0800
+
+    net: sync some IP headers with glibc
+
+include/uapi/linux/in.h
