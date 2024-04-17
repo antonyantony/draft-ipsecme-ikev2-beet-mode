@@ -46,4 +46,3 @@ Date:   Thu Aug 15 17:28:10 2013 +0800
     net: sync some IP headers with glibc
 
 include/uapi/linux/in.h
-
