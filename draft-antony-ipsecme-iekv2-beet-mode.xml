@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
-<!-- <xi:strict="yes" ?>
-<xi:compact="yes" ?>
-<xi:subcompact="no" ?>  -->
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="std" docName="draft-antony-ipsecme-iekv2-beet-mode" ipr="trust200902" obsoletes="" updates="" submissionType="IETF" xml:lang="en" tocInclude="true" tocDepth="4" symRefs="true" sortRefs="true" version="0" consensus="true">
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="std" docName="draft-antony-ipsecme-iekv2-beet-mode-00" ipr="trust200902" obsoletes="" updates="" submissionType="IETF" xml:lang="en" tocInclude="true" tocDepth="4" symRefs="true" sortRefs="true" version="3" consensus="true">
   <front>
     <!-- The abbreviated title is used in the page header - it is only necessary if the
         full title is longer than 39 characters -->
-    <title abbrev="IKv2 for BEET mode for ESP">IKEv2 negotiation for Bound End-to-End Tunnel (BEET) mode for ESP </title>
+    <title abbrev="IKv2 for BEET mode ESP">IKEv2 negotiation for Bound End-to-End Tunnel (BEET) mode ESP </title>
     <!-- add 'role="editor"' below for the editors if appropriate -->
     <!-- Another author who claims to be an editor -->
     <author fullname="Antony Antony" initials="A." surname="Antony">
