@@ -102,9 +102,9 @@ Table of Contents
    The [RFC7402]does not specify the negotiation process for
    establishing BEET mode using the Internet Key Exchange Protocol
    Version 2 (IKEv2).  This document fills this gap by introducing a new
-   Notify Message Type Payload, USE_BEET_MODE, tailored to facilitate
-   the negotiation and establishment of BEET mode security associations
-   in IKEv2.
+   Notify Message Status Type, USE_BEET_MODE, tailored to facilitate the
+   negotiation and establishment of BEET mode security associations in
+   IKEv2.
 
 
 
@@ -119,7 +119,8 @@ Internet-Draft           IKv2 for BEET mode ESP                 May 2024
    For over a decade, a minimalist IPsec tunnel mode, BEET, has been in
    use for end-to-end security in HIP environments without IKE
    negotiation, [RFC7401].  Also, in many environments, IKE negotiation
-   is conducted using a private IKEv2 Notify message (strongSWAN ref).
+   is conducted using a private IKEv2 Notify Message Type (strongSWAN
+   ref).
 
    Additionally, BEET mode ESP is valuable for low-power devices which
    usually use only one end-to-end IPsec tunnel, as it reduces power
@@ -157,7 +158,6 @@ Internet-Draft           IKv2 for BEET mode ESP                 May 2024
    notification.
 
 2.1.  USE_BEET_MODE Notify Message Payload
-
 
 
 
@@ -302,9 +302,9 @@ Internet-Draft           IKv2 for BEET mode ESP                 May 2024
 
    Licensing:  GPLv2
 
-   Implementation experience  strongSwan use a private space
-      notification value for IKE negotiation.  USE_BEET_MODE (40961).
-      As far we know BEET is widely used.
+   Implementation experience  strongSwan use a private Notify Message
+      Status Type USE_BEET_MODE (40961) for IKE.  As far we know BEET is
+      widely used.
 
    Contact  Tobias Brunner tobias@strongswan.org
 

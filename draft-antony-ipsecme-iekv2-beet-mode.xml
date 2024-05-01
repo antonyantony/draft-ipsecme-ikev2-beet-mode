@@ -5,20 +5,23 @@ docName="draft-antony-ipsecme-iekv2-beet-mode-01" ipr="trust200902"
 obsoletes="" updates="" submissionType="IETF" xml:lang="en" tocInclude="true"
 tocDepth="4" symRefs="true" sortRefs="true" version="3" consensus="true">
   <front>
-    <!-- The abbreviated title is used in the page header - it is only necessary if the
+    <!-- The abbreviated title is used in the page header
+                                - it is only necessary if the
         full title is longer than 39 characters -->
     <title abbrev="IKv2 for BEET mode ESP">IKEv2 negotiation for Bound
     End-to-End Tunnel (BEET) mode ESP</title>
     <!-- add 'role="editor"' below for the editors if appropriate -->
     <!-- Another author who claims to be an editor -->
     <author fullname="Antony Antony" initials="A." surname="Antony">
-      <organization abbrev="secunet">secunet Security Networks AG</organization>
+      <organization abbrev="secunet">secunet Security Networks
+      AG</organization>
       <address>
         <email>antony.antony@secunet.com</email>
       </address>
     </author>
     <author fullname="Steffen Klassert" initials="S." surname="Klassert">
-      <organization abbrev="secunet">secunet Security Networks AG</organization>
+      <organization abbrev="secunet">secunet Security Networks
+      AG</organization>
       <address>
         <email>steffen.klassert@secunet.com</email>
       </address>
@@ -51,19 +54,20 @@ tocDepth="4" symRefs="true" sortRefs="true" version="3" consensus="true">
       <t>[TBD Authors propose to write a BIZ document for Appendix B of
       <xref target="RFC7402" />, aiming to provide an updated document
       specifically focusing on ESP BEET mode.]</t>
-      <t>The <xref target="RFC7402" />does not specify the negotiation process
-         for establishing BEET mode using the Internet Key Exchange Protocol
-         Version 2 (IKEv2). This document fills this gap by introducing a new
-         Notify Message Type Payload, USE_BEET_MODE, tailored to facilitate the
-         negotiation and establishment of BEET mode security associations in
-         IKEv2.</t>
+      <t>The
+      <xref target="RFC7402" />does not specify the negotiation process for
+      establishing BEET mode using the Internet Key Exchange Protocol Version 2
+      (IKEv2). This document fills this gap by introducing a new Notify Message
+      Status Type, USE_BEET_MODE, tailored to facilitate the negotiation and
+      establishment of BEET mode security associations in IKEv2.</t>
       <section anchor="Background" numbered="true" toc="default">
         <name>Background</name>
         <t>For over a decade, a minimalist IPsec tunnel mode, BEET, has been in
         use for end-to-end security in HIP environments without IKE
         negotiation,
         <xref target="RFC7401" />. Also, in many environments, IKE negotiation
-        is conducted using a private IKEv2 Notify message (strongSWAN ref).</t>
+        is conducted using a private IKEv2 Notify Message Type (strongSWAN
+        ref).</t>
         <t>Additionally, BEET mode ESP is valuable for low-power devices which
         usually use only one end-to-end IPsec tunnel, as it reduces power
         consumption
@@ -174,7 +178,8 @@ tocDepth="4" symRefs="true" sortRefs="true" version="3" consensus="true">
       fit".</t>
       <t>Authors are requested to add a note to the RFC Editor at the top of
       this section, advising the Editor to remove the entire section before
-      publication, as well as the reference to <xref target="RFC7942" />.</t>
+      publication, as well as the reference to
+      <xref target="RFC7942" />.</t>
       <section anchor="impl-status.Linux.xfrm" title="Linux XFRM">
         <t>Linux</t>
         <dl>
@@ -215,9 +220,8 @@ tocDepth="4" symRefs="true" sortRefs="true" version="3" consensus="true">
           <dt>Licensing:</dt>
           <dd>GPLv2</dd>
           <dt>Implementation experience</dt>
-          <dd>strongSwan use a private space notification value for IKE
-          negotiation. USE_BEET_MODE (40961). As far we know BEET is widely
-          used.</dd>
+          <dd>strongSwan use a private Notify Message Status Type USE_BEET_MODE
+          (40961) for IKE. As far we know BEET is widely used.</dd>
           <dt>Contact</dt>
           <dd>Tobias Brunner tobias@strongswan.org</dd>
         </dl>
