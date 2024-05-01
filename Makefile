@@ -12,6 +12,10 @@ lint:
 
 	XMLLINT_INDENT="  " xmllint --format $(TMP_FILE).xml > $(NEW_FILE).xml && rm $(TMP_FILE).xml
 
+tidy:
+	mv $(NEW_FILE).xml $(TMP_FILE).xml
+	tidy -xml -wrap 80 -i $(TMP_FILE).xml > $(NEW_FILE).xml && rm $(TMP_FILE).xml
+
 rfcdiff:
 	rfcdiff --body --diff  $(OLD_FILE).txt $(NEW_FILE).txt
 
