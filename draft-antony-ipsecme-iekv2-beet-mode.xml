@@ -27,7 +27,7 @@
       <t>
   This document specifies a new Notify Message Type Payload for the
   Internet Key Exchange Protocol Version 2 (IKEv2), to
-  negotiate  IPsec ESP Bound End-to-End Tunnel (BEET) mode. BEET mode
+  negotiate IPsec ESP Bound End-to-End Tunnel (BEET) mode. BEET mode
   combines the benefits of tunnel mode with reduced overhead, making it suitable
   for applications requiring minimalistic end-to-end tunnels, mobility support,
   and multi-address multi-homing capabilities. The introduction of the USE_BEET_MODE
@@ -39,74 +39,79 @@
   <middle>
     <section numbered="true" toc="default">
       <name>Introduction</name>
-      <t>
-    The Bound End-to-End Tunnel (BEET) mode, specified in the appendix B of <xref target="RFC7402"/>
-		(Author's note: we propose to write BIZ document for RFC7402 Appendix B, an
-		updated document only for ESP BEET mode)
-    presents an optimized approach for deploying IPsec Encapsulating Security Payload
-    (ESP) by blending the benefits of tunnel and transport modes while minimizing
-    their overhead. The current, <xref target="RFC7402"/> does not specify the negotiation process for
-    establishing BEET mode using the Internet Key Exchange Protocol Version 2 (IKEv2).
-    This document addresses this gap by proposing a new Notify Message Type Payload,
-    USE_BEET_MODE, specifically designed to enable the negotiation and establishment
-    of BEET mode security associations in IKEv2.
-  </t>
-      <t>
-    The introduction of a negotiation mechanism for BEET mode aims to enhance the
-    flexibility and applicability of IPsec, particularly in environments that demand
-    efficient end-to-end security with minimal overhead, such as mobile and multi-homed
-    networks. By providing a standardized method for negotiating BEET mode, this
-    document seeks to facilitate wider adoption and integration into the broader
-    IPsec framework.
-  </t>
-      <section numbered="true" toc="default">
+
+<t>
+    The Bound End-to-End Tunnel (BEET) mode, as specified in Appendix B of
+    <xref target="RFC7402"/>, offers an optimized approach for deploying IP
+    Security (IPsec) using Encapsulating Security Payload (ESP) for end-to-end
+    use cases. It combines the advantages of Tunnel and Transport modes specified
+    in <xref target="RFC7296"/>, while minimizing their overhead for end-to-end use cases.
+</t>
+
+<t>
+    [TBD Authors propose to write a BIZ document for
+    Appendix B of <xref target="RFC7402"/>, aiming to provide a updated
+    document specifically focusing on ESP BEET mode.]
+</t>
+
+<t>
+    The <xref target="RFC7402"/> does not specify the negotiation process
+    for establishing BEET mode using the Internet Key Exchange Protocol Version
+    2 (IKEv2). This document fills this gap by introducing a new Notify Message
+    Type Payload, USE_BEET_MODE, tailored to facilitate the negotiation and
+    establishment of BEET mode security associations in IKEv2.
+</t>
+
+<section anchor="Background" numbered="true" toc="default">
+    <name>Background</name>
+    <t>
+        For over a decade, a minimalist IPsec tunnel mode, BEET, has been in use
+				for end-to-end security in HIP environments without IKE negotiation,
+        <xref target="RFC7401"/>. Also, in many environments, IKE negotiation is
+				conducted using a private IKEv2 Notify message (strongSWAN ref).
+    </t>
+    <t>
+        Additionally, BEET mode ESP is valuable for low-power devices which
+				usually use only one end-to-end IPsec tunnel, as it reduces power
+				consumption <xref target="RFC9333"/> and complexity. In situations where
+				devices or IPsec connections are dedicated to a single application or transport
+        protocol, the use of BEET mode simplifies packet processing and
+				conserves energy, especially benefiting lower-powered devices.
+    </t>
+</section>
+    <section numbered="true" toc="default">
         <name>Requirements Language</name>
         <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
        "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
        document are to be interpreted as described in
 			 <xref target="RFC2119" format="default">RFC 2119</xref>.</t>
-      </section>
-      <section anchor="Background" numbered="true" toc="default">
-        <name>Background</name>
-        <t>
-  For over a decade, a minimalist IPsec tunnel mode, BEET, has been in use for
-  end-to-end security in HIP environments without IKE negotiation,
-	<xref target="RFC7401"/> and in many environments using IKE negotiation using a private
-  Notification. (strongSWAN ref)
-</t>
-        <t>
-        Once IKEv2 negotiation for BEET mode is standardized its potential for
-        enhancing secure communications would increase along with
-        interoperability.
-      </t>
-        <t>
-Additionally, BEET is valuable for low-power devices, as it reduces
-power consumption <xref target="RFC9333"/> and complexity. In situations where
-devices or IPsec connections are dedicated to a single application or transport
-protocol. In this use case BEET mode simplifies packet processing and conserves
-energy, especially for lower-powered devices.
-</t>
-      </section>
     </section>
+</section>
+
     <section anchor="IKENegotiation" numbered="true" toc="default">
       <name>IKEv2 Negotiation</name>
       <t>
-			When negotiating a Child SA using using IKEv2, the initiator may use
-      the new "USE_BEET_MODE" Notify Message to request a Child SA pair with
-      BEET mode support.  The method used is similar to how USE_TRANSPORT_MODE
-			is negotiated, as described in <xref target="RFC7296"/>
+When negotiating a Child SA using IKEv2, the initiator may use
+the new "USE_BEET_MODE" Notify Message to request a Child SA pair with
+BEET mode support.  The method used is similar to how USE_TRANSPORT_MODE
+is negotiated, as described in <xref target="RFC7296"/>
 			</t>
       <t>
       To request a BEET-mode SA on the Child SA pair, the initiator MUST
       include the USE_BEET_MODE Notify Message when requesting a new Child
-			SA, either during the IKE_AUTH or CREATE_CHILD_SA exchanges.
+			SA, either during the IKE_AUTH or the CREATE_CHILD_SA exchanges.
 			If the request is accepted, the response MUST also include a USE_BEET_MODE
 			Notification. If the responder declines and does not include the
 			USE_BEET_MODE notification in the response, the child SA may be
 			established without BEET mode enabled. If this is unacceptable to the
 			initiator, the initiator MUST delete the child SA.
 	 </t>
-      <section title="USE_BEET_MODE Notify Message Payload" anchor="USEBeetNotify">
+	 <t>
+As the use of the USE_BEET_MODE mode payload is currently only defined
+for non-transport-mode tunnels, the USE_BEET_MODE notification MUST NOT
+be combined with the USE_TRANSPORT notification.
+	</t>
+	<section title="USE_BEET_MODE Notify Message Payload" anchor="USEBeetNotify">
         <figure align="center">
           <artwork align="left"><![CDATA[
 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -122,22 +127,17 @@ energy, especially for lower-powered devices.
           <li>Protocol ID (1 octet) - MUST be 0. MUST be ignored if not 0.</li>
           <li>SPI Size (1 octet) - MUST be 0. MUST be ignored if not 0.</li>
         </ul>
-        <t>
-   As the use of the USE_BEET_MODE mode payload is currently only defined
-   for non-transport-mode tunnels, the USE_BEET_MODE notification MUST NOT
-   be combined with the USE_TRANSPORT notification.
-			</t>
       </section>
     </section>
-    <section anchor="IANA" title="IANA Considerations">
+<section anchor="IANA" title="IANA Considerations">
       <t>
-        This document defines a new IKEv2 Notify Message Type payloads for the IANA "IKEv2 Notify Message Types - Status Types" registry.
+        This document defines a new IKEv2 Notify for the IANA "IKEv2 Notify Message Status Types" registry.
         </t>
       <figure align="center" anchor="iana_requests_i">
         <artwork align="left"><![CDATA[
-      Value   Notify Type Messages - Status Types    Reference
-      -----   ------------------------------    ---------------
-      [TBD1]   USE_BEET_MODE                      [this document]
+      Value   Notify Message Status Type     Reference
+      -----   ---------------------------    ---------------
+      [TBD1]   USE_BEET_MODE                  [this document]
             ]]></artwork>
       </figure>
     </section>
@@ -146,9 +146,11 @@ energy, especially for lower-powered devices.
       <t> In this section we discuss the security properties of the BEET mode,
    discussing some and point out some of its limitations <xref target="RFC3552"/>.
 	 </t>
-      <t>There are no known new vulnerabilities that the addition of the
-   BEET mode to IKEv2  would create.</t>
-      <t>
+   <t>
+There are no known new vulnerabilities that the addition of the BEET
+			mode to IKEv2  would create.
+</t>
+<t>
    Since the BEET security associations have the semantics of a fixed,
    point-to-point tunnel between two IP addresses, it is possible to
    place one or both of the tunnel end points into other nodes but those
@@ -196,7 +198,7 @@ energy, especially for lower-powered devices.
           <dt> Organization: </dt>
           <dd> Linux kernel Project</dd>
           <dt> Name: </dt>
-          <dd> Linux Kernel  https://www.kernel.org/</dd>
+          <dd> Linux Kernel https://www.kernel.org/</dd>
           <dt> Description: </dt>
           <dd> Implements BEET mode in ESP. The initial support was added in 2006. It is widely used </dd>
           <dt> Level of maturity: </dt>
@@ -217,7 +219,7 @@ energy, especially for lower-powered devices.
           <dt> Name: </dt>
           <dd> strongSwan https://docs.strongswan.org/docs/5.9/swanctl/swanctlConf.html </dd>
           <dt> Description: </dt>
-          <dd> Implements IKE negotiation and and ESP support for BEET mode Linux</dd>
+          <dd> Implements IKE negotiation and ESP support for BEET mode Linux</dd>
           <dt> Level of maturity: </dt>
           <dd> Stable for a long time</dd>
           <dt> Coverage: </dt>
