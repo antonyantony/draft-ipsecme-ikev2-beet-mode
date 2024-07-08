@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="std"
-docName="draft-antony-ipsecme-iekv2-beet-mode-02" ipr="trust200902"
+docName="draft-antony-ipsecme-iekv2-beet-mode-01" ipr="trust200902"
 obsoletes="" updates="" submissionType="IETF" xml:lang="en" tocInclude="true"
 tocDepth="4" symRefs="true" sortRefs="true" version="3" consensus="true">
   <front>
@@ -13,13 +13,15 @@ tocDepth="4" symRefs="true" sortRefs="true" version="3" consensus="true">
     <!-- add 'role="editor"' below for the editors if appropriate -->
     <!-- Another author who claims to be an editor -->
     <author fullname="Antony Antony" initials="A." surname="Antony">
-      <organization abbrev="secunet">secunet Security Networks AG</organization>
+      <organization abbrev="secunet">secunet Security Networks
+      AG</organization>
       <address>
         <email>antony.antony@secunet.com</email>
       </address>
     </author>
     <author fullname="Steffen Klassert" initials="S." surname="Klassert">
-      <organization abbrev="secunet">secunet Security Networks AG</organization>
+      <organization abbrev="secunet">secunet Security Networks
+      AG</organization>
       <address>
         <email>steffen.klassert@secunet.com</email>
       </address>
@@ -43,16 +45,18 @@ tocDepth="4" symRefs="true" sortRefs="true" version="3" consensus="true">
     <section numbered="true" toc="default">
       <name>Introduction</name>
       <t>The Bound End-to-End Tunnel (BEET) mode, as specified in Appendix B of
+
       <xref target="RFC7402" />, offers an optimized approach for deploying IP
       Security (IPsec) using Encapsulating Security Payload (ESP) for
       end-to-end use cases. It combines the advantages of Tunnel and Transport
       modes specified in
       <xref target="RFC7296" />, while minimizing their overhead for end-to-end
       use cases.</t>
-      <t>[TBD Authors wonders should we write a bis document for Appendix B of
-      <xref target="RFC7402"/>, aiming to provide an updated document
-      specifically focusing on ESP BEET mode.]</t>
-      <t>The <xref target="RFC7402" />does not specify the negotiation process for
+      <t>[TBD Authors propose to write a BIS document for Appendix B of
+      <xref target="RFC7402" />, aiming to provide an updated document just
+      focusing on ESP BEET mode.]</t>
+      <t>The
+      <xref target="RFC7402" />does not specify the negotiation process for
       establishing BEET mode using the Internet Key Exchange Protocol Version 2
       (IKEv2). This document fills this gap by introducing a new Notify Message
       Status Type, USE_BEET_MODE, tailored to facilitate the negotiation and
@@ -60,11 +64,10 @@ tocDepth="4" symRefs="true" sortRefs="true" version="3" consensus="true">
       <section anchor="Background" numbered="true" toc="default">
         <name>Background</name>
         <t>For over a decade, a minimalist IPsec tunnel mode, BEET, has been in
-        use for end-to-end security in HIP environments without IKE
-        negotiation,
-        <xref target="RFC7401" />. Also, in many environments, IKE negotiation
-        is conducted using a private IKEv2 Notify Message Type (strongSWAN
-        ref).</t>
+        use for end-to-end security in Host Identity Protocol(HIP) environments
+        without IKE negotiation,
+        <xref target="RFC7401" />. Also, in using IKE negotiation using a
+        private IKEv2 Notify Message Type (strongSWAN ref).</t>
         <t>Additionally, BEET mode ESP is valuable for low-power devices which
         usually use only one end-to-end IPsec tunnel, as it reduces power
         consumption
@@ -80,25 +83,30 @@ tocDepth="4" symRefs="true" sortRefs="true" version="3" consensus="true">
         document are to be interpreted as described in
         <xref target="RFC2119" format="default">RFC 2119</xref>.</t>
       </section>
+      <section title="Terminology">
+        <t>This document uses the following terms defined in IKEv2
+        <xref target="RFC7296" />: Child SA, CREATE_CHILD_SA, Notify Messages
+        Type</t>
+      </section>
     </section>
     <section anchor="IKENegotiation" numbered="true" toc="default">
       <name>IKEv2 Negotiation</name>
       <t>When negotiating a Child SA using IKEv2, the initiator may use the new
-      "USE_BEET_MODE" Notify Message to request a Child SA pair with BEET mode
+      USE_BEET_MODE Notify Message to request a Child SA pair with BEET mode
       support. The method used is similar to how USE_TRANSPORT_MODE is
       negotiated, as described in
-      <xref target="RFC7296" /></t>
+      <xref target="RFC7296" />.</t>
       <t>To request a BEET-mode SA on the Child SA pair, the initiator MUST
       include the USE_BEET_MODE Notify Message when requesting a new Child SA,
       either during the IKE_AUTH or the CREATE_CHILD_SA exchanges. If the
       request is accepted, the response MUST also include a USE_BEET_MODE
       Notification. If the responder declines and does not include the
-      USE_BEET_MODE notification in the response, the child SA may be
+      USE_BEET_MODE Notify Message in the response, the child SA may be
       established without BEET mode enabled. If this is unacceptable to the
       initiator, the initiator MUST delete the child SA.</t>
       <t>As the use of the USE_BEET_MODE mode payload is currently only defined
       for non-transport-mode tunnels, the USE_BEET_MODE notification MUST NOT
-      be combined with the USE_TRANSPORT notification.</t>
+      be combined with the USE_TRANSPORT_MODE notification.</t>
       <section title="USE_BEET_MODE Notify Message Payload"
       anchor="USEBeetNotify">
         <figure align="center">
@@ -193,8 +201,8 @@ tocDepth="4" symRefs="true" sortRefs="true" version="3" consensus="true">
           <dd>GPLv2</dd>
           <dt>Implementation experience:</dt>
           <dd>There is no support for IPv4 fragments yet. IPv6 fragments
-          appears to work. The BEET mode code is in production for over a
-          decade. And it appears stable.</dd>
+          appears to work. The BEE mode code is in production for over a
+          decade</dd>
           <dt>Contact:</dt>
           <dd>https://lore.kernel.org/netdev/</dd>
         </dl>

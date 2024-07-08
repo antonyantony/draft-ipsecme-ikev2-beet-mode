@@ -5,7 +5,7 @@
 IPSECME Working Group                                          A. Antony
 Internet-Draft                                               S. Klassert
 Intended status: Standards Track                                 secunet
-Expires: 2 November 2024                                      1 May 2024
+Expires: 4 November 2024                                      3 May 2024
 
 
      IKEv2 negotiation for Bound End-to-End Tunnel (BEET) mode ESP
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 November 2024.
+   This Internet-Draft will expire on 4 November 2024.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Antony & Klassert        Expires 2 November 2024                [Page 1]
+Antony & Klassert        Expires 4 November 2024                [Page 1]
 
 Internet-Draft           IKv2 for BEET mode ESP                 May 2024
 
@@ -72,8 +72,9 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
      1.1.  Background  . . . . . . . . . . . . . . . . . . . . . . .   3
      1.2.  Requirements Language . . . . . . . . . . . . . . . . . .   3
+     1.3.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   3
    2.  IKEv2 Negotiation . . . . . . . . . . . . . . . . . . . . . .   3
-     2.1.  USE_BEET_MODE Notify Message Payload  . . . . . . . . . .   3
+     2.1.  USE_BEET_MODE Notify Message Payload  . . . . . . . . . .   4
    3.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   4
    4.  Security Considerations . . . . . . . . . . . . . . . . . . .   4
    5.  Implementation Status . . . . . . . . . . . . . . . . . . . .   5
@@ -95,9 +96,9 @@ Table of Contents
    specified in [RFC7296], while minimizing their overhead for end-to-
    end use cases.
 
-   [TBD Authors propose to write a BIZ document for Appendix B of
-   [RFC7402], aiming to provide an updated document specifically
-   focusing on ESP BEET mode.]
+   [TBD Authors propose to write a BIS document for Appendix B of
+   [RFC7402], aiming to provide an updated document just focusing on ESP
+   BEET mode.]
 
    The [RFC7402]does not specify the negotiation process for
    establishing BEET mode using the Internet Key Exchange Protocol
@@ -108,8 +109,7 @@ Table of Contents
 
 
 
-
-Antony & Klassert        Expires 2 November 2024                [Page 2]
+Antony & Klassert        Expires 4 November 2024                [Page 2]
 
 Internet-Draft           IKv2 for BEET mode ESP                 May 2024
 
@@ -117,9 +117,9 @@ Internet-Draft           IKv2 for BEET mode ESP                 May 2024
 1.1.  Background
 
    For over a decade, a minimalist IPsec tunnel mode, BEET, has been in
-   use for end-to-end security in HIP environments without IKE
-   negotiation, [RFC7401].  Also, in many environments, IKE negotiation
-   is conducted using a private IKEv2 Notify Message Type (strongSWAN
+   use for end-to-end security in Host Identity Protocol(HIP)
+   environments without IKE negotiation, [RFC7401].  Also, in using IKE
+   negotiation using a private IKEv2 Notify Message Type (strongSWAN
    ref).
 
    Additionally, BEET mode ESP is valuable for low-power devices which
@@ -135,39 +135,42 @@ Internet-Draft           IKv2 for BEET mode ESP                 May 2024
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
    document are to be interpreted as described in RFC 2119 [RFC2119].
 
+1.3.  Terminology
+
+   This document uses the following terms defined in IKEv2 [RFC7296]:
+   Child SA, CREATE_CHILD_SA, Notify Messages Type
+
 2.  IKEv2 Negotiation
 
    When negotiating a Child SA using IKEv2, the initiator may use the
-   new "USE_BEET_MODE" Notify Message to request a Child SA pair with
-   BEET mode support.  The method used is similar to how
-   USE_TRANSPORT_MODE is negotiated, as described in [RFC7296]
+   new USE_BEET_MODE Notify Message to request a Child SA pair with BEET
+   mode support.  The method used is similar to how USE_TRANSPORT_MODE
+   is negotiated, as described in [RFC7296].
 
    To request a BEET-mode SA on the Child SA pair, the initiator MUST
    include the USE_BEET_MODE Notify Message when requesting a new Child
    SA, either during the IKE_AUTH or the CREATE_CHILD_SA exchanges.  If
    the request is accepted, the response MUST also include a
    USE_BEET_MODE Notification.  If the responder declines and does not
-   include the USE_BEET_MODE notification in the response, the child SA
-   may be established without BEET mode enabled.  If this is
+   include the USE_BEET_MODE Notify Message in the response, the child
+   SA may be established without BEET mode enabled.  If this is
    unacceptable to the initiator, the initiator MUST delete the child
    SA.
 
    As the use of the USE_BEET_MODE mode payload is currently only
    defined for non-transport-mode tunnels, the USE_BEET_MODE
-   notification MUST NOT be combined with the USE_TRANSPORT
+   notification MUST NOT be combined with the USE_TRANSPORT_MODE
    notification.
 
-2.1.  USE_BEET_MODE Notify Message Payload
 
 
 
-
-
-
-
-Antony & Klassert        Expires 2 November 2024                [Page 3]
+Antony & Klassert        Expires 4 November 2024                [Page 3]
 
 Internet-Draft           IKv2 for BEET mode ESP                 May 2024
+
+
+2.1.  USE_BEET_MODE Notify Message Payload
 
 
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -218,10 +221,7 @@ Internet-Draft           IKv2 for BEET mode ESP                 May 2024
 
 
 
-
-
-
-Antony & Klassert        Expires 2 November 2024                [Page 4]
+Antony & Klassert        Expires 4 November 2024                [Page 4]
 
 Internet-Draft           IKv2 for BEET mode ESP                 May 2024
 
@@ -277,7 +277,7 @@ Internet-Draft           IKv2 for BEET mode ESP                 May 2024
 
 
 
-Antony & Klassert        Expires 2 November 2024                [Page 5]
+Antony & Klassert        Expires 4 November 2024                [Page 5]
 
 Internet-Draft           IKv2 for BEET mode ESP                 May 2024
 
@@ -333,7 +333,7 @@ Internet-Draft           IKv2 for BEET mode ESP                 May 2024
 
 
 
-Antony & Klassert        Expires 2 November 2024                [Page 6]
+Antony & Klassert        Expires 4 November 2024                [Page 6]
 
 Internet-Draft           IKv2 for BEET mode ESP                 May 2024
 
@@ -389,7 +389,7 @@ Internet-Draft           IKv2 for BEET mode ESP                 May 2024
 
 
 
-Antony & Klassert        Expires 2 November 2024                [Page 7]
+Antony & Klassert        Expires 4 November 2024                [Page 7]
 
 Internet-Draft           IKv2 for BEET mode ESP                 May 2024
 
@@ -445,4 +445,4 @@ Authors' Addresses
 
 
 
-Antony & Klassert        Expires 2 November 2024                [Page 8]
+Antony & Klassert        Expires 4 November 2024                [Page 8]
