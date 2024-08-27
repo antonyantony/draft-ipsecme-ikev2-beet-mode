@@ -1,27 +1,52 @@
-NEW_FILE ?= draft-antony-ipsecme-iekv2-beet-mode
-OLD_FILE ?= draft-antony-ipsecme-iekv2-beet-mode
-TMP-SUFF ?= $(mktemp -u XXXXXX)
-TMP_FILE ?= $(NEW_FILE)-$(TMP-SUFF)
+ORG ?=ikev2-beet.org
+DOCKRUN=
 
-XML2RFC?=/Users/antony/Library/Python/3.11/bin/xml2rfc
+BASE := $(shell sed -e '/^\#+RFC_NAME:/!d;s/\#+RFC_NAME: *\(.*\)/\1/' $(ORG))
+VERSION := $(shell sed -e '/^\#+RFC_VERSION:/!d;s/\#+RFC_VERSION: *\([0-9]*\)/\1/' $(ORG))
+VERSION_NOZERO := $(shell echo "$(VERSION)" | sed -e 's/^0*//')
+NEXT_VERSION := $(shell printf "%02d" "$$(($(VERSION_NOZERO) + 1))")
+PREV_VERSION := $(shell printf "%02d" "$$(($(VERSION_NOZERO) - 1))")
+DTYPE := $(word 2,$(subst -, ,$(BASE)))
+PBRANCH := publish-$(DTYPE)-$(VERSION)
+PBASE := publish/$(BASE)-$(VERSION)
+VBASE := draft/$(BASE)-$(VERSION)
+LBASE := draft/$(BASE)-latest
+SHELL := /bin/bash
 
-all:
-	$(XML2RFC) --v3 --text $(NEW_FILE).xml
+EMACSCMD := $(DOCKRUN) emacs -Q --batch --debug-init --eval '(setq-default indent-tabs-mode nil)' --eval '(setq org-confirm-babel-evaluate nil)' -l ./ox-rfc.el
 
-lint:
-	XMLLINT_INDENT="  " xmllint --format $(NEW_FILE).xml > $(TMP_FILE).xml && mv $(TMP_FILE).xml $(NEW_FILE).xml
+all: $(VBASE).xml $(LBASE).txt $(LBASE).html # $(LBASE).pdf
 
-tidy:
-	tidy -i -xml -wrap 80 -i $(NEW_FILE).xml > $(TMP_FILE).xml && mv $(TMP_FILE).xml $(NEW_FILE).xml
+clean:
+	rm -f $(BASE).xml $(BASE)-*.{txt,html,pdf} $(LBASE).*
 
-rfcdiff:
-	rfcdiff --body --diff  $(OLD_FILE).txt $(NEW_FILE).txt
+$(VBASE).xml: $(ORG) ox-rfc.el test
+	mkdir -p draft
+	$(EMACSCMD) $< -f ox-rfc-export-to-xml
+	sed -i -e 's/<organization>secunet Security Networks AG/<organization abbrev="secunet">secunet Security Networks AG/g' $(BASE).xml
+	mv $(BASE).xml $@
 
-xml2rfc:
-	xml2rfc $(NEW_FILE).xml
+%-$(VERSION).txt: %-$(VERSION).xml
+	$(DOCKRUN) xml2rfc --v3 --cache /tmp --text $< > $@
 
-aadiff:
-	git diff $(NEW_FILE) | grep -E "^[+-]" -A 1 -B 1 | grep -v "^--" > a
+%-$(VERSION).html: %-$(VERSION).xml
+	$(DOCKRUN) xml2rfc --v3 --cache /tmp --html $< > $@
 
-a:
-	$(XML2RFC) --v3 --text a.xml
+%-$(VERSION).pdf: %-$(VERSION).xml
+	$(DOCKRUN) xml2rfc --cache /tmp --pdf $< > $@
+
+$(LBASE).%: $(VBASE).%
+	cp $< $@
+
+ox-rfc.el:
+	curl -fLO 'https://raw.githubusercontent.com/choppsv1/org-rfc-export/master/ox-rfc.el'
+
+test: $(ORG) ox-rfc.el
+	@echo Testing $<
+	@result="$$($(EMACSCMD) $< -f ox-rfc-run-test-blocks 2>&1)"; \
+	if [ -n "$$(echo \"$$result\"|grep FAIL)" ]; then \
+		grep RESULT <<< "$$result" || true; \
+		exit 1; \
+	else \
+		grep RESULT <<< "$$result" || true; \
+	fi;
