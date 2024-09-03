@@ -1,19 +1,19 @@
-# Do: title, toc:table-of-contents ::fixed-width-sections |tables
-# Do: ^:sup/sub with curly -:special-strings *:emphasis
+# Do: title, toc:table-of-contents ::fixed-width-sections |tables Do: ^:sup/sub
+# with curly -:special-strings *:emphasis
 # Don't: prop:no-prop-drawers \n:preserve-linebreaks ':use-smart-quotes
 #+OPTIONS: prop:nil title:t toc:t \n:nil ::t |:t ^:{} -:t *:t ':nil
+# vim: set textwidth=69
 
 #+RFC_CATEGORY: std
 #+RFC_NAME: draft-antony-ipsecme-iekv2-beet-mode
-#+RFC_VERSION: 02
+#+RFC_VERSION: 03
 #+RFC_IPR: trust200902
 #+RFC_STREAM: IETF
 #+RFC_TOC_DEPTH: 4
 #+RFC_XML_VERSION: 3
 #+RFC_CONSENSUS: true
 
-#+TITLE: IKEv2 negotiation for Bound
-    End-to-End Tunnel (BEET) mode ESP
+#+TITLE: IKEv2 negotiation for Bound End-to-End Tunnel (BEET) mode ESP
 #+RFC_SHORT_TITLE: IKv2 for BEET mode ESP
 #+AUTHOR: Antony Antony
 #+EMAIL: antony.antony@secunet.com
@@ -34,25 +34,21 @@ introduction of the USE_BEET_MODE Notify Message enables the
 negotiation and establishment of BEET mode security associations.
 
 #+end_abstract
-#+RFC_KEYWORDS: ("BEET" "IKEv2")
+#+RFC_KEYWORDS: ("IKEv2" "BEET")
 
 * Introduction
 
 The Bound End-to-End Tunnel (BEET) mode, as specified in Appendix B
 of [[RFC7402]], offers an optimized approach for deploying IP
-Security (IPsec) using Encapsulating Security Payload (ESP) for
-end-to-end use cases. It combines the advantages of Tunnel and
+Security (IPsec), [RFC4301], using Encapsulating Security Payload
+(ESP) [RFC4303] for end-to-end use cases. It combines the advantages of Tunnel and
 Transport modes specified in [[RFC7296]], while minimizing their
 overhead for end-to-end use cases.
 
-[TBD Authors wonders should we write a bis document for Appendix B of
-[[RFC7402]], aiming to provide an updated document specifically
-focusing on ESP BEET mode.]
-
-The [[RFC7402]]does not specify the negotiation process for
-establishing BEET mode using the Internet Key Exchange Protocol
-Version 2 (IKEv2). This document fills this gap by introducing a new
-Notify Message Status Type, USE_BEET_MODE, tailored to facilitate the
+The [[RFC7402]]does not specify necessary code points to negotiate
+a ESP BEET mode SA using the Internet Key Exchange Protocol
+Version 2 (IKEv2) [RFC7296]. This document fills this gap by introducing a new
+Notify Message Status Type, USE_BEET_MODE, to facilitate the
 negotiation and establishment of BEET mode security associations in
 IKEv2.
 
@@ -61,9 +57,8 @@ IKEv2.
 
 For over a decade, a minimalist IPsec tunnel mode, BEET, has been in
 use for end-to-end security in HIP environments without IKE
-negotiation, [[RFC7401]]. Also, in many environments, IKE negotiation
-is conducted using a private IKEv2 Notify Message Type (strongSWAN
-ref).
+negotiation, [[RFC7401]]. Also, in many environments,  with IKE negotiation
+using a private IKEv2 Notify Message Type (strongSWAN ref).
 
 Additionally, BEET mode ESP is valuable for low-power devices which
 usually use only one end-to-end IPsec tunnel, as it reduces power
@@ -82,17 +77,17 @@ document are to be interpreted as described in [[RFC2119]].
 
 * IKEv2 Negotiation
 
-When negotiating a Child SA using IKEv2, the initiator may use the
+When negotiating a Child SA using IKEv2, the initiator MUST use the
 new "USE_BEET_MODE" Notify Message to request a Child SA pair with
 BEET mode support. The method used is similar to how
 USE_TRANSPORT_MODE is negotiated, as described in [[RFC7296]]
 
 To request a BEET-mode SA on the Child SA pair, the initiator MUST
-include the USE_BEET_MODE Notify Message when requesting a new Child
-SA, either during the IKE_AUTH or the CREATE_CHILD_SA exchanges. If
-the request is accepted, the response MUST also include a
-USE_BEET_MODE Notification. If the responder declines and does not
-include the USE_BEET_MODE notification in the response, the child SA
+include the USE_BEET_MODE,Notify Message Status Type, when requesting
+a new Child SA, either during the IKE_AUTH or the CREATE_CHILD_SA
+exchanges. If the request is accepted, the response MUST also include a
+USE_BEET_MODE Notification Message Status Type. If the responder
+declines and does not include the USE_BEET_MODE notification in the response, the child SA
 may be established without BEET mode enabled. If this is unacceptable
 to the initiator, the initiator MUST delete the child SA.
 
@@ -106,14 +101,14 @@ notification.
 
 #+begin_src
 
-            
+
 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-----------------------------+-------------------------------+
 ! Next Payload  !C!  RESERVED   !         Payload Length        !
 +---------------+---------------+-------------------------------+
 !  Protocol ID  !   SPI Size    !      Notify Message Type      !
 +---------------+---------------+-------------------------------+
-                                 
+
 
 #+end_src
 
@@ -130,11 +125,11 @@ Message Status Types" registry.
 #+name: iana_requests_i
 #+begin_src
 
-          
+
       Value   Notify Message Status Type     Reference
       -----   ---------------------------    ---------------
       [TBD1]   USE_BEET_MODE                  [this document]
-            
+
 
 #+end_src
 
@@ -153,7 +148,7 @@ nodes but those that actually "possess" the inner IP addresses, i.e.,
 to implement a BEET mode proxy. However, since such usage defeats the
 security benefits of combined ESP processing, as discussed in
 [[I-D.nikander-esp-beet-mode]], the implementations SHOULD NOT
-support such usage when used in combination with IKEv2; and use IKEv2
+support such usage when used in combination with IKEv2; instead use IKEv2
 MOBIKE to move the between networks.
 
 
@@ -256,6 +251,7 @@ contributions to the implementation of BEET mode many years ago.
 ** RFC7942
 ** RFC7401
 ** RFC9333
+** I-D.nikander-esp-beet-mode
 
 * Additional Stuff
 
