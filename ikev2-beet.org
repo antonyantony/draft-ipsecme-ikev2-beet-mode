@@ -58,7 +58,7 @@ IKEv2.
 For over a decade, a minimalist IPsec tunnel mode, BEET, has been in
 use for end-to-end security in HIP environments without IKE
 negotiation, [[RFC7401]]. Also, in many environments,  with IKE negotiation
-using a private IKEv2 Notify Message Type (strongSWAN ref).
+using a private IKEv2 Notify Message Status Type (strongSWAN).
 
 Additionally, BEET mode ESP is valuable for low-power devices which
 usually use only one end-to-end IPsec tunnel, as it reduces power
@@ -78,23 +78,23 @@ document are to be interpreted as described in [[RFC2119]].
 * IKEv2 Negotiation
 
 When negotiating a Child SA using IKEv2, the initiator MUST use the
-new "USE_BEET_MODE" Notify Message to request a Child SA pair with
+new "USE_BEET_MODE" Notify Message Status Type to request a Child SA pair with
 BEET mode support. The method used is similar to how
 USE_TRANSPORT_MODE is negotiated, as described in [[RFC7296]]
 
 To request a BEET-mode SA on the Child SA pair, the initiator MUST
-include the USE_BEET_MODE,Notify Message Status Type, when requesting
+include the USE_BEET_MODE, Notify Message Status Type, when requesting
 a new Child SA, either during the IKE_AUTH or the CREATE_CHILD_SA
-exchanges. If the request is accepted, the response MUST also include a
-USE_BEET_MODE Notification Message Status Type. If the responder
-declines and does not include the USE_BEET_MODE notification in the response, the child SA
-may be established without BEET mode enabled. If this is unacceptable
-to the initiator, the initiator MUST delete the child SA.
+exchanges to create a new Child SA. If the request is accepted, the
+response MUST also include a USE_BEET_MODE Notification Message Status Type.
+If the responder declines and does not include the USE_BEET_MODE notification
+in the response, the child SA may be established without BEET mode enabled.
+If this is unacceptable to the initiator, the initiator MUST delete the child
+SA.
 
-As the use of the USE_BEET_MODE mode payload is currently only
-defined for non-transport-mode tunnels, the USE_BEET_MODE
-notification MUST NOT be combined with the USE_TRANSPORT
-notification.
+As the use of the USE_BEET_MODE mode payload is currently only defined
+for non-transport-mode tunnels, the USE_BEET_MODE notification MUST NOT
+be combined with the USE_TRANSPORT notification.
 
 
 ** USE_BEET_MODE Notify Message Payload
