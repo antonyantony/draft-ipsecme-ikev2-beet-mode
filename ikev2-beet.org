@@ -119,8 +119,9 @@ notification.
 
 * IANA Considerations
 
-This document defines a new IKEv2 Notify for the IANA "IKEv2 Notify
-Message Status Types" registry.
+
+This document defines a new "IKEv2 Notify Message Status Type" to be
+added to the IANA registry [[STATUSNOTIFY]]
 
 #+name: iana_requests_i
 #+begin_src
@@ -252,6 +253,12 @@ contributions to the implementation of BEET mode many years ago.
 ** RFC7401
 ** RFC9333
 ** I-D.nikander-esp-beet-mode
+** STATUSNOTIFY
+:PROPERTIES:
+:REF_TARGET: https://www.iana.org/assignments/ikev2-parameters/ikev2-parameters.xhtml#ikev2-parameters-16
+:REF_TITLE: IKEv2 Notify Message Status Types
+:REF_ORG: IANA
+:END:
 
 * Additional Stuff
 
