@@ -6,7 +6,7 @@
 
 #+RFC_CATEGORY: std
 #+RFC_NAME: draft-antony-ipsecme-iekv2-beet-mode
-#+RFC_VERSION: 03
+#+RFC_VERSION: 04
 #+RFC_IPR: trust200902
 #+RFC_STREAM: IETF
 #+RFC_TOC_DEPTH: 4
