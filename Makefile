@@ -33,11 +33,11 @@ publish: git-clean-check $(VBASE).xml $(VBASE).txt $(VBASE).html
 	if [ -f $(PBASE).xml ]; then echo "$(PBASE).xml already present, increment version?"; exit 1; fi
 	cp $(VBASE).xml $(VBASE).txt $(VBASE).html publish
 	git checkout -b $(PBRANCH)
-	git tag -m "yank.mk publish-$(DTYPE)-$(VERSION)" bp-$(PBRANCH)
-	git push -f --tags
+	git tag -m "yank.mk publish-$(PBRANCH)" bp-$(PBRANCH)
+	# git push -f --tags
 	git add $(PBASE).xml $(PBASE).txt $(PBASE).html
-	git commit -m "yank.mk publish-$(DTYPE)-$(VERSION)"
-	git push origin $(PBRANCH)
+	git commit -m "yank.mk publish-$(PBRANCH)"
+	# git push origin $(PBRANCH)
 	git checkout main
 	git merge --ff-only $(PBRANCH)
 	sed -i -e 's/\#+RFC_VERSION: *\([0-9]*\)/\#+RFC_VERSION: $(NEXT_VERSION)/' $(ORG)
