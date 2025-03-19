@@ -6,7 +6,7 @@ This is the working area for the WG Internet-Draft, *IKEv2 negotiation for Bound
 * [[https://datatracker.ietf.org/doc/draft-ietf-ipsecme-ikev2-beet-mode/][Datatracker Page]]
 * [[https://author-tools.ietf.org/api/iddiff?doc_1=draft-ietf-ipsecme-ikev2-beet-mode&url_2=https://antonyantony.github.io/draft-ietf-ipsecme-ikev2-beet-mode/draft-ietf-ipsecme-ikev2-beet-mode-latest.txt][diff with last submission]]
 
-## Contributing
+* Contributing
 
 See the
 [[guidelines for contributions][https://github.com/antonyantony/draft-ietf-ipsecme-ikev2-beet-mode/blob/main/CONTRIBUTING.md]]
@@ -14,12 +14,13 @@ See the
 Contributions can be made by creating pull requests.
 The GitHub interface supports creating pull requests using the Edit (✏) button.
 
-## Command Line Usage
+* Command Line Usage
 
-Formatted text and HTML versions of the draft can be built using *make*.
+Formatted text,HTML and xml versions of the draft can be built using *make*.
 
 #+BEGIN_SRC sh
 $ make
+ls -l draft/*-latest*
 #+END_SRC
 
 Command line usage requires that you have the necessary software installed. A local copy of emcas, which is used by the *make*. You are free to use an editor of your choice.
