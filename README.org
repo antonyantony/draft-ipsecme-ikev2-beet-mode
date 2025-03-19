@@ -18,9 +18,9 @@ The GitHub interface supports creating pull requests using the Edit (✏) button
 
 Formatted text and HTML versions of the draft can be built using *make*.
 
-```sh
+#+BEGIN_SRC sh
 $ make
-```
+#+END_SRC
 
 Command line usage requires that you have the necessary software installed. A local copy of emcas, which is used by the *make*. You are free to use an editor of your choice.
 Alternatively "make DOCKER=yes"
