@@ -6,10 +6,7 @@ This is the working area for the WG Internet-Draft, *IKEv2 negotiation for Bound
 * [[https://datatracker.ietf.org/doc/draft-ietf-ipsecme-ikev2-beet-mode/][Datatracker Page]]
 * [[https://author-tools.ietf.org/api/iddiff?doc_1=draft-ietf-ipsecme-ikev2-beet-mode&url_2=https://raw.githubusercontent.com/antonyantony/draft-ietf-ipsecme-ikev2-beet-mode/refs/heads/gh-pages/draft-ietf-ipsecme-ikev2-beet-mode-latest.txt][diff with last submission]]
 
-* Contributing
-
-See the
-[[guidelines for contributions][https://github.com/antonyantony/draft-ietf-ipsecme-ikev2-beet-mode/blob/main/CONTRIBUTING.md]]
+* [[https://github.com/antonyantony/draft-ietf-ipsecme-ikev2-beet-mode/blob/main/CONTRIBUTING.md][Contributing]]
 
 Contributions can be made by creating pull requests.
 The GitHub interface supports creating pull requests using the Edit (✏) button.
