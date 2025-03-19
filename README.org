@@ -4,7 +4,7 @@ This is the working area for the WG Internet-Draft, *IKEv2 negotiation for Bound
 
 * [[https://antonyantony.github.io/draft-ietf-ipsecme-ikev2-beet-mode/draft-ietf-ipsecme-ikev2-beet-mode-latest.html][Editor's Copy]]
 * [[https://datatracker.ietf.org/doc/draft-ietf-ipsecme-ikev2-beet-mode/][Datatracker Page]]
-* [[https://author-tools.ietf.org/api/iddiff?doc_1=draft-ietf-ipsecme-ikev2-beet-mode&url_2=https://antonyantony.github.io/draft-ietf-ipsecme-ikev2-beet-mode/draft-ietf-ipsecme-ikev2-beet-mode-latest.txt][diff with last submission]]
+* [[https://author-tools.ietf.org/api/iddiff?doc_1=draft-ietf-ipsecme-ikev2-beet-mode&url_2=https://raw.githubusercontent.com/antonyantony/draft-ietf-ipsecme-ikev2-beet-mode/refs/heads/gh-pages/draft-ietf-ipsecme-ikev2-beet-mode-latest.txt][diff with last submission]]
 
 * Contributing
 
